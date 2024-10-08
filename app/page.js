@@ -5,27 +5,35 @@ import { Container } from './components/ui/container'
 import { Title } from './components/ui/title'
 import { Form } from './components/ui/form'
 import { SubmitButton } from './components/ui/submit-button'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import api from '../src/services/api'
 
 export default function Home() {
   const [repo, setRepo] = useState('')
   const [list, setList] = useState([])
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+  /** Callback when change state on repo and/or list */
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
 
-    const resp = await api.get(`repos/${repo}`)
-    const data = {
-      name: resp.data.full_name,
-    }
+      /** Fetch API and hydrate array data */
+      async function submit() {
+        const resp = await api.get(`repos/${repo}`)
+        const data = {
+          name: resp.data.full_name,
+        }
 
-    console.log(data)
+        setList([...list, data])
+        setRepo('')
+      }
 
-    setList([...list, data])
-    setRepo('')
-  }
+      submit()
+    },
+    [repo, list]
+  )
 
+  /** handle when change input field */
   function handleInputChange(e) {
     setRepo(e.target.value)
   }
