@@ -6,13 +6,24 @@ import { Title } from './components/ui/title'
 import { Form } from './components/ui/form'
 import { SubmitButton } from './components/ui/submit-button'
 import { useState } from 'react'
+import api from '../src/services/api'
 
 export default function Home() {
   const [repo, setRepo] = useState('')
+  const [list, setList] = useState([])
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    console.log(repo)
+
+    const resp = await api.get(`repos/${repo}`)
+    const data = {
+      name: resp.data.full_name,
+    }
+
+    console.log(data)
+
+    setList([...list, data])
+    setRepo('')
   }
 
   function handleInputChange(e) {
