@@ -1,3 +1,5 @@
+import { Title } from './components/ui/title'
+
 export const metadata = {
   title: 'Home',
 }
@@ -5,7 +7,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <h1>Home page!</h1>
+      <Title>Home Page</Title>
     </>
   )
 }

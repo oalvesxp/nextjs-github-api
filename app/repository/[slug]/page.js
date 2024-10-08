@@ -1,3 +1,10 @@
+import { Title } from '../../components/ui/title'
+
 export default function Page({ params }) {
-  return <div>My Repository: {params.slug}</div>
+  return (
+    <>
+      <Title>Repository page</Title>
+      <p>My Repository: {params.slug}</p>
+    </>
+  )
 }
