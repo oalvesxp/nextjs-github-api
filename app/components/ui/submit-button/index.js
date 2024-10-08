@@ -1,3 +1,12 @@
-export function SubmitButton({ children }) {
-  return <>{children}</>
-}
+import styled from 'styled-components'
+
+export const SubmitButton = styled.button`
+  background-color: #0d2636;
+  border: 0;
+  border-radius: 4px;
+  margin-left: 10px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
