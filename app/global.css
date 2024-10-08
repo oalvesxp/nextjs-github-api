@@ -30,6 +30,12 @@ body {
   -webkit-font-smoothing: antialiased !important;
 }
 
+button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
 .sr-only {
   display: none;
 }
