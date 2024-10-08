@@ -11,6 +11,7 @@ import api from '../src/services/api'
 export default function Home() {
   const [repo, setRepo] = useState('')
   const [list, setList] = useState([])
+  const [loading, setLoading] = useState(false)
 
   /** Callback when change state on repo and/or list */
   const handleSubmit = useCallback(
@@ -19,13 +20,20 @@ export default function Home() {
 
       /** Fetch API and hydrate array data */
       async function submit() {
-        const resp = await api.get(`repos/${repo}`)
-        const data = {
-          name: resp.data.full_name,
-        }
+        setLoading(true)
+        try {
+          const resp = await api.get(`repos/${repo}`)
+          const data = {
+            name: resp.data.full_name,
+          }
 
-        setList([...list, data])
-        setRepo('')
+          setList([...list, data])
+          setRepo('')
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setLoading(false)
+        }
       }
 
       submit()
@@ -55,7 +63,7 @@ export default function Home() {
           onChange={handleInputChange}
         />
 
-        <SubmitButton>
+        <SubmitButton loading={loading ? 1 : 0}>
           <FaPlus size={16} color="#f4f4f9" />
           <span className="sr-only">Adicionar repositório</span>
         </SubmitButton>
