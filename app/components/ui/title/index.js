@@ -1,5 +1,6 @@
-import styles from './title.module.css'
+import styled from 'styled-components'
 
-export function Title({ children }) {
-  return <h1 className={styles.title}>{children}</h1>
-}
+export const Title = styled.h1`
+  font-size: 28px;
+  font-weight: 500;
+`
