@@ -14,6 +14,7 @@ export default function Home() {
   const [repo, setRepo] = useState('')
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState(null)
 
   /** Callback when change state on repo and/or list */
   const handleSubmit = useCallback(
@@ -23,8 +24,21 @@ export default function Home() {
       /** Fetch API and hydrate array data */
       async function submit() {
         setLoading(true)
+        setAlert(null)
         try {
+          /** If input field is empty */
+          if (repo === '') {
+            throw new Error('Você precisa indicar um repositório')
+          }
+
           const resp = await api.get(`repos/${repo}`)
+
+          /** If repo is already in list */
+          const hasRepo = list.find((r) => r.name === repo)
+          if (hasRepo) {
+            throw new Error('Você já cadastrou esse repositório')
+          }
+
           const data = {
             id: resp.data.id,
             name: resp.data.full_name,
@@ -33,6 +47,7 @@ export default function Home() {
           setList([...list, data])
           setRepo('')
         } catch (error) {
+          setAlert(true)
           console.log(error)
         } finally {
           setLoading(false)
@@ -47,6 +62,7 @@ export default function Home() {
   /** handle when change input field */
   function handleInputChange(e) {
     setRepo(e.target.value)
+    setAlert(null)
   }
 
   /** Callback when delete repository */
@@ -68,7 +84,7 @@ export default function Home() {
         </h1>
       </Title>
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} $error={alert}>
         <input
           type="text"
           placeholder="Digite o nome do repositório"
