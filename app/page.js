@@ -49,6 +49,16 @@ export default function Home() {
     setRepo(e.target.value)
   }
 
+  /** Callback when delete repository */
+  const handleDelete = useCallback(
+    (id) => {
+      const find = list.filter((r) => r.id !== id)
+      console.log(find)
+      setList(find)
+    },
+    [list]
+  )
+
   return (
     <Container>
       <Title>
@@ -79,7 +89,7 @@ export default function Home() {
       <List>
         {list.map((repo) => (
           <li key={repo.id}>
-            <DeleteButton>
+            <DeleteButton onClick={() => handleDelete(repo.id)}>
               <FaTrash size={12} />
               <span className="sr-only">Apagar repositório</span>
             </DeleteButton>
