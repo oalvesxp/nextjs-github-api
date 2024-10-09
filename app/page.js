@@ -1,6 +1,6 @@
 'use client'
 
-import { FaGithub, FaPlus } from 'react-icons/fa'
+import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa'
 import { Container } from './components/ui/container'
 import { Title } from './components/ui/title'
 import { Form } from './components/ui/form'
@@ -64,7 +64,11 @@ export default function Home() {
         />
 
         <SubmitButton loading={loading ? 1 : 0}>
-          <FaPlus size={16} color="#f4f4f9" />
+          {loading ? (
+            <FaSpinner size={16} color="#f4f4f9" />
+          ) : (
+            <FaPlus size={16} color="#f4f4f9" />
+          )}
           <span className="sr-only">Adicionar repositório</span>
         </SubmitButton>
       </Form>

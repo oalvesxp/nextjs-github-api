@@ -1,4 +1,15 @@
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
+
+/** Button animation */
+const animate = keyframes`
+  from{
+    transform: rotate(0deg)
+  }
+
+  to{
+    transform: rotate(360deg)
+  }
+`
 
 export const SubmitButton = styled.button.attrs((props) => ({
   type: 'submit',
@@ -17,4 +28,12 @@ export const SubmitButton = styled.button.attrs((props) => ({
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  ${(props) =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${animate} 2s linear infinite;
+      }
+    `}
 `
