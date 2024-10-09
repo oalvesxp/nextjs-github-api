@@ -6,6 +6,7 @@ import { Title } from './components/ui/title'
 import { Form } from './components/ui/form'
 import { SubmitButton } from './components/ui/submit-button'
 import { List } from './components/ui/list'
+import { DeleteButton } from './components/ui/delete-button'
 import { useState, useCallback } from 'react'
 import api from '../src/services/api'
 
@@ -78,6 +79,10 @@ export default function Home() {
       <List>
         {list.map((repo) => (
           <li key={repo.id}>
+            <DeleteButton>
+              <FaTrash size={12} />
+              <span className="sr-only">Apagar repositório</span>
+            </DeleteButton>
             <div className="list__repo_name">{repo.name}</div>
             <div className="list__icon_detail">
               <a href="#">
