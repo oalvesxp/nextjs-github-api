@@ -7,7 +7,7 @@ import { Form } from './components/ui/form'
 import { SubmitButton } from './components/ui/submit-button'
 import { List } from './components/ui/list'
 import { DeleteButton } from './components/ui/delete-button'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import api from '../src/services/api'
 
 export default function Home() {
@@ -15,6 +15,22 @@ export default function Home() {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState(null)
+
+  /** DidMount */
+  useEffect(() => {
+    const storageRepo = localStorage.getItem('@repos')
+
+    if (storageRepo) {
+      setList(JSON.parse(storageRepo))
+    }
+  }, [])
+
+  /** DidUpdate */
+  useEffect(() => {
+    if (list.length > 0) {
+      localStorage.setItem('@repos', JSON.stringify(list))
+    }
+  }, [list])
 
   /** Callback when change state on repo and/or list */
   const handleSubmit = useCallback(
@@ -48,7 +64,6 @@ export default function Home() {
           setRepo('')
         } catch (error) {
           setAlert(true)
-          console.log(error)
         } finally {
           setLoading(false)
         }
@@ -69,7 +84,7 @@ export default function Home() {
   const handleDelete = useCallback(
     (id) => {
       const find = list.filter((r) => r.id !== id)
-      console.log(find)
+      localStorage.setItem('@repos', JSON.stringify(find))
       setList(find)
     },
     [list]
