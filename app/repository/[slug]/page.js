@@ -1,3 +1,5 @@
+'use client'
+
 import { Title } from '../../components/ui/title'
 
 export default function Page({ params }) {

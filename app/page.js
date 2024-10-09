@@ -9,6 +9,7 @@ import { List } from './components/ui/list'
 import { DeleteButton } from './components/ui/delete-button'
 import { useState, useCallback, useEffect } from 'react'
 import api from '../src/services/api'
+import Link from 'next/link'
 
 export default function Home() {
   const [repo, setRepo] = useState('')
@@ -126,10 +127,13 @@ export default function Home() {
             </DeleteButton>
             <div className="list__repo_name">{repo.name}</div>
             <div className="list__icon_detail">
-              <a href="#">
+              <Link
+                className="list__button_info"
+                href={`/repository/${repo.id}`}
+              >
                 <FaBars size={16} />
                 <span className="sr-only">Detalhes do repositório</span>
-              </a>
+              </Link>
             </div>
           </li>
         ))}

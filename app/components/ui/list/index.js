@@ -26,7 +26,7 @@ export const List = styled.ul`
       justify-content: flex-end;
     }
 
-    a {
+    .list__button_info {
       display: flex;
       align-items: center;
       text-decoration: none;
