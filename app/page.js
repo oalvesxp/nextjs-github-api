@@ -129,7 +129,7 @@ export default function Home() {
             <div className="list__icon_detail">
               <Link
                 className="list__button_info"
-                href={`/repository/${repo.id}`}
+                href={`/repository/${encodeURIComponent(repo.name)}`}
               >
                 <FaBars size={16} />
                 <span className="sr-only">Detalhes do repositório</span>
