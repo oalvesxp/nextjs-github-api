@@ -48,7 +48,7 @@ export default function Home() {
             throw new Error('Você precisa indicar um repositório')
           }
 
-          const resp = await api.get(`repos/${repo}`)
+          const res = await api.get(`repos/${repo}`)
 
           /** If repo is already in list */
           const hasRepo = list.find((r) => r.name === repo)
@@ -57,8 +57,8 @@ export default function Home() {
           }
 
           const data = {
-            id: resp.data.id,
-            name: resp.data.full_name,
+            id: res.data.id,
+            name: res.data.full_name,
           }
 
           setList([...list, data])
