@@ -32,8 +32,6 @@ body {
 
 button:hover {
   cursor: pointer;
-  background: #f59e0b;
-  transition: background 0.1s ease;
 }
 
 .sr-only {
