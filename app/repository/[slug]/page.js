@@ -7,6 +7,7 @@ import { Owner } from '../../components/ui/owner'
 import { Loading } from '../../components/ui/loading'
 import { BackButton } from '../../components/ui/back-button'
 import { IssuesList } from '../../components/ui/issues-list'
+import { IssuesFilter } from '../../components/ui/issues-filter'
 import { PageActions } from '../../components/ui/page-actions'
 import api from '../../../src/services/api'
 
@@ -16,7 +17,13 @@ export default function Page({ params }) {
   const [issues, setIssues] = useState([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
+  const [filters, setFilters] = useState([
+    { state: 'open', label: 'Abertas', active: true },
+    { state: 'Closed', label: 'Encerradas', active: true },
+    { state: 'all', label: 'Todas', active: true },
+  ])
 
+  /** DidMount */
   useEffect(() => {
     async function load() {
       const name = decodeURIComponent(params.slug) /** URL params  */
@@ -46,6 +53,7 @@ export default function Page({ params }) {
     load()
   }, [params.slug])
 
+  /** When pageState is updated */
   useEffect(() => {
     async function loadIssue() {
       const name = decodeURIComponent(params.slug) /** URL params  */
@@ -66,7 +74,6 @@ export default function Page({ params }) {
   /** Pagination handle */
   function handlePage(action) {
     setPage(action === 'back' ? page - 1 : page + 1)
-    console.log(page)
   }
 
   if (loading) {
@@ -88,6 +95,14 @@ export default function Page({ params }) {
         <h1>{repository.name}</h1>
         <p>{repository.description}</p>
       </Owner>
+
+      <IssuesFilter>
+        {filters.map((item, index) => (
+          <button type="button" key={item.label}>
+            {item.label}
+          </button>
+        ))}
+      </IssuesFilter>
 
       <IssuesList>
         {issues.map((item) => (
