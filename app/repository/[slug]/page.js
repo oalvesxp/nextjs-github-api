@@ -20,7 +20,7 @@ export default function Page({ params }) {
   const [filters, setFilters] = useState([
     { state: 'all', label: 'Todas', active: true },
     { state: 'open', label: 'Abertas', active: false },
-    { state: 'Closed', label: 'Encerradas', active: false },
+    { state: 'closed', label: 'Encerradas', active: false },
   ])
   const [filterIndex, setFilterIndex] = useState(0)
 
@@ -60,7 +60,7 @@ export default function Page({ params }) {
       const name = decodeURIComponent(params.slug) /** URL params  */
       const res = await api.get(`repos/${name}/issues`, {
         params: {
-          state: 'open',
+          state: filters[filterIndex].state,
           page,
           per_page: 5,
         },
@@ -70,7 +70,7 @@ export default function Page({ params }) {
     }
 
     loadIssue()
-  }, [params.slug, page])
+  }, [params.slug, page, filters, filterIndex])
 
   /** Pagination handle */
   function handlePage(action) {
@@ -88,7 +88,6 @@ export default function Page({ params }) {
   /** Filters */
   function handleFilter(index) {
     setFilterIndex(index)
-    console.log(index)
   }
 
   return (
