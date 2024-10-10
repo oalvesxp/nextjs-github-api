@@ -14,7 +14,7 @@ export const IssuesFilter = styled.div`
     margin: 0 4px;
     background: #d1d5db;
 
-    &:nth-child(${(props) => props.active + 1}) {
+    &:nth-child(${(props) => props.$active + 1}) {
       background: #15b47a;
       color: #f4f4f9;
     }

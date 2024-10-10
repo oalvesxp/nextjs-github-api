@@ -18,10 +18,11 @@ export default function Page({ params }) {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [filters, setFilters] = useState([
-    { state: 'open', label: 'Abertas', active: true },
-    { state: 'Closed', label: 'Encerradas', active: true },
     { state: 'all', label: 'Todas', active: true },
+    { state: 'open', label: 'Abertas', active: false },
+    { state: 'Closed', label: 'Encerradas', active: false },
   ])
+  const [filterIndex, setFilterIndex] = useState(0)
 
   /** DidMount */
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Page({ params }) {
           api.get(`repos/${name}`),
           api.get(`repos/${name}/issues`, {
             params: {
-              state: 'open',
+              state: filters.find((f) => f.active).state,
               per_page: 5,
             },
           }),
@@ -51,7 +52,7 @@ export default function Page({ params }) {
     }
 
     load()
-  }, [params.slug])
+  }, [params.slug, filters])
 
   /** When pageState is updated */
   useEffect(() => {
@@ -84,6 +85,12 @@ export default function Page({ params }) {
     )
   }
 
+  /** Filters */
+  function handleFilter(index) {
+    setFilterIndex(index)
+    console.log(index)
+  }
+
   return (
     <Container>
       <BackButton href="/">
@@ -96,9 +103,13 @@ export default function Page({ params }) {
         <p>{repository.description}</p>
       </Owner>
 
-      <IssuesFilter>
+      <IssuesFilter $active={filterIndex}>
         {filters.map((item, index) => (
-          <button type="button" key={item.label}>
+          <button
+            type="button"
+            key={item.label}
+            onClick={() => handleFilter(index)}
+          >
             {item.label}
           </button>
         ))}
