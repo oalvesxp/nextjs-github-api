@@ -15,6 +15,7 @@ export default function Page({ params }) {
   const [repository, setRepository] = useState({})
   const [issues, setIssues] = useState([])
   const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     async function load() {
@@ -44,6 +45,29 @@ export default function Page({ params }) {
 
     load()
   }, [params.slug])
+
+  useEffect(() => {
+    async function loadIssue() {
+      const name = decodeURIComponent(params.slug) /** URL params  */
+      const res = await api.get(`repos/${name}/issues`, {
+        params: {
+          state: 'open',
+          page,
+          per_page: 5,
+        },
+      })
+
+      setIssues(res.data)
+    }
+
+    loadIssue()
+  }, [params.slug, page])
+
+  /** Pagination handle */
+  function handlePage(action) {
+    setPage(action === 'back' ? page - 1 : page + 1)
+    console.log(page)
+  }
 
   if (loading) {
     return (
@@ -85,10 +109,14 @@ export default function Page({ params }) {
       </IssuesList>
 
       <PageActions>
-        <button type="button" onClick={() => {}}>
+        <button
+          type="button"
+          onClick={() => handlePage('back')}
+          disabled={page < 2}
+        >
           Voltar
         </button>
-        <button type="button" onClick={() => {}}>
+        <button type="button" onClick={() => handlePage('next')}>
           Avançar
         </button>
       </PageActions>
