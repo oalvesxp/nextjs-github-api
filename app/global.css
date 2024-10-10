@@ -5,12 +5,12 @@
  * #d1d5db : Light Gray
  * #f4f4f9 : White
  * #0089cc : Cian
- * #34d399 : Emerald
+ * #15b47a : Emerald
  * #f59e0b : Orange
 */
 
 * {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   outline: 0;
 }
@@ -32,8 +32,6 @@ body {
 
 button:hover {
   cursor: pointer;
-  background-color: #f59e0b;
-  transition: background-color 0.1s ease;
 }
 
 .sr-only {
