@@ -10,4 +10,10 @@ export const DeleteButton = styled.button.attrs({
   outline: 0;
   border-radius: 4px;
   margin-right: 10px;
+
+  &:hover {
+    background-color: #ef4444;
+    color: #fafafa;
+    transition: background-color 0.2s ease;
+  }
 `

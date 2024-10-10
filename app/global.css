@@ -10,7 +10,7 @@
 */
 
 * {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   outline: 0;
 }
@@ -32,8 +32,8 @@ body {
 
 button:hover {
   cursor: pointer;
-  background-color: #f59e0b;
-  transition: background-color 0.1s ease;
+  background: #f59e0b;
+  transition: background 0.1s ease;
 }
 
 .sr-only {

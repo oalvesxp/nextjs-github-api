@@ -7,6 +7,7 @@ import { Owner } from '../../components/ui/owner'
 import { Loading } from '../../components/ui/loading'
 import { BackButton } from '../../components/ui/back-button'
 import { IssuesList } from '../../components/ui/issues-list'
+import { PageActions } from '../../components/ui/page-actions'
 import api from '../../../src/services/api'
 
 /* <p>My Repository: {params.slug}</p> */
@@ -82,6 +83,15 @@ export default function Page({ params }) {
           </li>
         ))}
       </IssuesList>
+
+      <PageActions>
+        <button type="button" onClick={() => {}}>
+          Voltar
+        </button>
+        <button type="button" onClick={() => {}}>
+          Avançar
+        </button>
+      </PageActions>
     </Container>
   )
 }
